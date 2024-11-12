@@ -1,4 +1,4 @@
-package com.davidmerchan.adtechnicaltest
+package com.davidmerchan.data
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -3,4 +3,32 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.android.library) apply false
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
+}
+
+allprojects {
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+
+    // Config detekt plugin
+    detekt {
+        // Set the detekt configuration from previous steps
+        config.setFrom(file("$rootDir/config/detekt-config.yml"))
+
+        // Build upon the default detekt configuration, instead of replacing it
+        buildUponDefaultConfig = true
+
+        // Do not activate all detekt rules
+        allRules = false
+
+        // Enable automatic correction of issues found by detekt
+        autoCorrect = true
+
+        // Run detekt in parallel mode for better performance
+        parallel = true
+    }
+
+    dependencies {
+        detektPlugins("io.nlopez.compose.rules:detekt:0.4.4")
+    }
 }

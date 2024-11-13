@@ -2,6 +2,6 @@ package com.davidmerchan.domain.repository
 
 import com.davidmerchan.domain.entitie.Article
 
-interface ArticleRepository {
+interface ArticleDatasourceRepository {
     fun getArticles(): List<Article>
 }

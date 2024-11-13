@@ -5,5 +5,6 @@ data class Article(
     val title: String,
     val content: String,
     val author: String,
-    val createdDate: String
+    val createdDate: String,
+    val storyUrl: String,
 )

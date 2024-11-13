@@ -2,6 +2,8 @@ package com.davidmerchan.di
 
 import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
+import com.davidmerchan.data.datasource.ArticlesRetrofitDataSource
+import com.davidmerchan.data.datasource.ArticlesRoomDatasource
 import com.davidmerchan.database.dao.ArticleDao
 import com.davidmerchan.data.repository.ArticleDatasource
 import com.davidmerchan.domain.repository.ArticleDatasourceRepository
@@ -18,12 +20,12 @@ object ArticlesModule {
     @Provides
     fun provideArticlesRemoteDataSource(
         articleService: ArticleService
-    ) = ArticlesRemoteDataSource(articleService)
+    ): ArticlesRemoteDataSource = ArticlesRetrofitDataSource(articleService)
 
     @Provides
     fun provideArticlesLocalDatasource(
         articleDao: ArticleDao
-    ) = ArticlesLocalDatasource(articleDao)
+    ): ArticlesLocalDatasource = ArticlesRoomDatasource(articleDao)
 
     @Provides
     fun provideArticleRepository(

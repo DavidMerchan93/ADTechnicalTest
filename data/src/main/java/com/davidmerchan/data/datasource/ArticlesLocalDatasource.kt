@@ -14,6 +14,7 @@ class ArticlesLocalDatasource @Inject constructor(
         return articles.map { it.mapToDomain() }
     }
 
+    @Suppress("SpreadOperator")
     fun saveArticles(articles: List<Article>) {
         val data: Array<ArticleEntity> = articles.map { it.mapToEntity() }.toTypedArray()
         articleDao.insertArticles(*data)

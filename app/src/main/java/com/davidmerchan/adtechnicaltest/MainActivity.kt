@@ -34,7 +34,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArticlesScreen(
-    modifier: Modifier = Modifier,
     articlesViewModel: ArticlesViewModel = hiltViewModel()
 ) {
     LaunchedEffect(Unit) {

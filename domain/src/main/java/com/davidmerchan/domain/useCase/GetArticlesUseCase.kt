@@ -9,13 +9,13 @@ class GetArticlesUseCase @Inject constructor(
     private val articlesRepository: ArticleDatasourceRepository,
     private val saveArticlesUseCase: SaveArticlesUseCase
 ) {
-    suspend operator fun invoke(): List<Article> {
-        when (val result = articlesRepository.getArticles()) {
+    suspend operator fun invoke(): Resource<List<Article>> {
+        return when (val result = articlesRepository.getArticles()) {
             is Resource.Success -> {
                 saveArticlesUseCase(result.data)
-                return result.data
+                result
             }
-            is Resource.Error -> throw result.exception
+            is Resource.Error -> result
         }
     }
 }

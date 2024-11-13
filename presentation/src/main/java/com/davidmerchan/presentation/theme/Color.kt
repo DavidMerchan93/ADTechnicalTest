@@ -1,4 +1,4 @@
-package com.davidmerchan.adtechnicaltest.ui.theme
+package com.davidmerchan.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

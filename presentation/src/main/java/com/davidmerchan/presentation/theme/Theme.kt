@@ -1,6 +1,5 @@
-package com.davidmerchan.adtechnicaltest.ui.theme
+package com.davidmerchan.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

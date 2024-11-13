@@ -15,7 +15,7 @@ class ArticleDatasource @Inject constructor(
 
     @Suppress("TooGenericExceptionCaught")
     override suspend fun getArticles(): Resource<List<Article>> {
-        val connected = false
+        val connected = true
         return try {
             val result = if (connected) {
                 remoteDataSource.getArticles()

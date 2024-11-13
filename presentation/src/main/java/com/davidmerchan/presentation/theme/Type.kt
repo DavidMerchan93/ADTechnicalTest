@@ -1,4 +1,4 @@
-package com.davidmerchan.adtechnicaltest.ui.theme
+package com.davidmerchan.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

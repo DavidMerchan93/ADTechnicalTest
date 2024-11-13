@@ -25,3 +25,14 @@ data class ArticleEntity(
         )
     }
 }
+
+fun Article.mapToEntity(): ArticleEntity {
+    return ArticleEntity(
+        id = id,
+        title = title,
+        content = content,
+        author = author,
+        createdDate = createdDate,
+        storyUrl = storyUrl,
+    )
+}

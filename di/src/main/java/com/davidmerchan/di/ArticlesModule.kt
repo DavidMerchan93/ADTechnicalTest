@@ -1,10 +1,9 @@
 package com.davidmerchan.di
 
-import com.davidmerchan.data.local.ArticleDao
-import com.davidmerchan.data.repository.ArticlesLocalDatasource
-import com.davidmerchan.data.repository.ArticlesRemoteDataSource
+import com.davidmerchan.data.datasource.ArticlesLocalDatasource
+import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
+import com.davidmerchan.data.repository.ArticleDatasource
 import com.davidmerchan.domain.repository.ArticleDatasourceRepository
-import com.davidmerchan.network.ArticleService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,12 +14,8 @@ import dagger.hilt.components.SingletonComponent
 object ArticlesModule {
 
     @Provides
-    fun provideRemoteArticleRepository(
-        articleService: ArticleService
-    ): ArticleDatasourceRepository = ArticlesRemoteDataSource(articleService)
-
-    @Provides
-    fun provideLocalArticleRepository(
-        articleDao: ArticleDao
-    ): ArticleDatasourceRepository = ArticlesLocalDatasource(articleDao)
+    fun provideArticleRepository(
+        localDatasource: ArticlesLocalDatasource,
+        remoteDataSource: ArticlesRemoteDataSource
+    ): ArticleDatasourceRepository = ArticleDatasource(localDatasource, remoteDataSource)
 }

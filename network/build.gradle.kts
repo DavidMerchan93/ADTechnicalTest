@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmerchan.data"
+    namespace = "com.davidmerchan.network"
     compileSdk = 34
 
     defaultConfig {
@@ -34,16 +34,10 @@ android {
 
 dependencies {
 
-    implementation(project(":domain"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
 }

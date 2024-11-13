@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.android.library) apply false
-    id("io.gitlab.arturbosch.detekt") version "1.23.7"
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.android.hilt) apply false
 }
 
 allprojects {

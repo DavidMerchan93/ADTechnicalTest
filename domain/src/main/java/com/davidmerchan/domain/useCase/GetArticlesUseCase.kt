@@ -1,4 +1,4 @@
-package com.davidmerchan.data.useCase
+package com.davidmerchan.domain.useCase
 
 class GetArticlesUseCase {
     operator fun invoke() {

@@ -1,8 +1,8 @@
 package com.davidmerchan.data.datasource
 
-import com.davidmerchan.data.model.ArticlesResponse
+import com.davidmerchan.data.mapper.mapToDomain
 import com.davidmerchan.domain.entitie.Article
-import com.davidmerchan.data.ArticleService
+import com.davidmerchan.network.api.ArticleService
 import javax.inject.Inject
 
 class ArticlesRemoteDataSource @Inject constructor(

@@ -1,6 +1,6 @@
 package com.davidmerchan.di
 
-import com.davidmerchan.data.ArticleService
+import com.davidmerchan.network.api.ArticleService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +16,4 @@ object ApiModule {
     fun provideArticlesApi(
         retrofit: Retrofit
     ): ArticleService = retrofit.create(ArticleService::class.java)
-
 }

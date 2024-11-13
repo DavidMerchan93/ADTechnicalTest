@@ -11,7 +11,7 @@ class ArticleDatasource @Inject constructor(
     private val remoteDataSource: ArticlesRemoteDataSource
 ) : ArticleDatasourceRepository {
     override suspend fun getArticles(): List<Article> {
-        val connected = true
+        val connected = false
         return if (connected) {
             val remoteArticles = remoteDataSource.getArticles()
             localDatasource.saveArticles(remoteArticles)

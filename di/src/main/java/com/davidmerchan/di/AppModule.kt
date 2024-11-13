@@ -2,14 +2,15 @@ package com.davidmerchan.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.davidmerchan.data.local.AppDatabase
-import com.davidmerchan.data.local.ArticleDao
+import com.davidmerchan.database.AppDatabase
+import com.davidmerchan.database.dao.ArticleDao
+import com.davidmerchan.network.manager.RetrofitBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -31,4 +32,8 @@ object AppModule {
     fun provideArticleDao(
         database: AppDatabase
     ): ArticleDao = database.articleDao()
+
+    @Provides
+    @Singleton
+    fun provideApiManager(): Retrofit = RetrofitBuilder.create()
 }

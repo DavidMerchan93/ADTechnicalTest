@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmerchan.data"
+    namespace = "com.davidmerchan.database"
     compileSdk = 34
 
     defaultConfig {
@@ -35,10 +35,6 @@ android {
 
 dependencies {
 
-    implementation(project(":domain"))
-    implementation(project(":network"))
-    implementation(project(":database"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -46,7 +42,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

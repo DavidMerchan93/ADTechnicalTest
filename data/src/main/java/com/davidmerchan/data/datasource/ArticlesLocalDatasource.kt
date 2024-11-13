@@ -1,8 +1,9 @@
 package com.davidmerchan.data.datasource
 
-import com.davidmerchan.data.local.ArticleDao
-import com.davidmerchan.data.local.ArticleEntity
-import com.davidmerchan.data.local.mapToEntity
+import com.davidmerchan.data.mapper.mapToDomain
+import com.davidmerchan.data.mapper.mapToEntity
+import com.davidmerchan.database.entity.ArticleEntity
+import com.davidmerchan.database.dao.ArticleDao
 import com.davidmerchan.domain.entitie.Article
 import javax.inject.Inject
 

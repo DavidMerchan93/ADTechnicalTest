@@ -1,6 +1,6 @@
-package com.davidmerchan.data
+package com.davidmerchan.network.api
 
-import com.davidmerchan.data.model.ArticlesResponse
+import com.davidmerchan.network.model.ArticlesResponse
 import retrofit2.http.GET
 
 interface ArticleService {

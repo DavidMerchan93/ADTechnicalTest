@@ -2,10 +2,10 @@ package com.davidmerchan.di
 
 import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
-import com.davidmerchan.data.local.ArticleDao
+import com.davidmerchan.database.dao.ArticleDao
 import com.davidmerchan.data.repository.ArticleDatasource
 import com.davidmerchan.domain.repository.ArticleDatasourceRepository
-import com.davidmerchan.data.ArticleService
+import com.davidmerchan.network.api.ArticleService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.davidmerchan.data.model
+package com.davidmerchan.network.model
 
 import com.google.gson.annotations.SerializedName
 

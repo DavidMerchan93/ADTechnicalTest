@@ -52,4 +52,7 @@ dependencies {
 
     // Room
     implementation(libs.androidx.room.runtime)
+
+    // Retrofit
+    implementation(libs.retrofit)
 }

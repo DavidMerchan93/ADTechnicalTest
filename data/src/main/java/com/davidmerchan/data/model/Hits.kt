@@ -1,15 +1,26 @@
 package com.davidmerchan.data.model
 
-internal data class Hits(
+import com.google.gson.annotations.SerializedName
+
+data class Hits(
+    @SerializedName("story_id")
     val storyId: Int,
-    val storyTitle: String,
-    val storyUrl: String,
+    @SerializedName("story_title")
+    val storyTitle: String?,
+    @SerializedName("story_url")
+    val storyUrl: String?,
+    @SerializedName("author")
     val author: String,
-    val commentText: String,
+    @SerializedName("comment_text")
+    val commentText: String?,
+    @SerializedName("created_at")
     val createdAt: String,
+    @SerializedName("tags")
     val tags: List<String>,
-    val createdAtI: Int,
-    val objectID: String,
-    val parentId: Int,
+    @SerializedName("created_at_i")
+    val createdAtI: Long,
+    @SerializedName("parent_id")
+    val parentId: Long,
+    @SerializedName("updated_at")
     val updatedAt: String
 )

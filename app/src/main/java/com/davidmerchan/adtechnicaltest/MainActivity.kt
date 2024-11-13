@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.davidmerchan.adtechnicaltest.ui.theme.ADTechnicalTestTheme
+import com.davidmerchan.presentation.ArticlesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,10 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ADTechnicalTestTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    ArticlesScreen()
                 }
             }
         }
@@ -33,17 +33,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-internal fun GreetingPreview() {
-    ADTechnicalTestTheme {
-        Greeting("Android")
+fun ArticlesScreen(
+    modifier: Modifier = Modifier,
+    articlesViewModel: ArticlesViewModel = hiltViewModel()
+) {
+    LaunchedEffect(Unit) {
+        articlesViewModel.getArticles()
     }
 }

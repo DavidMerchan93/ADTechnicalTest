@@ -1,8 +1,9 @@
 package com.davidmerchan.domain.useCase
 
 import com.davidmerchan.domain.repository.ArticleDatasourceRepository
+import javax.inject.Inject
 
-class GetArticlesUseCase(
+class GetArticlesUseCase @Inject constructor(
     private val articlesRepository: ArticleDatasourceRepository
 ) {
     suspend operator fun invoke() {

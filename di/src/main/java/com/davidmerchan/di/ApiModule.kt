@@ -1,6 +1,6 @@
-package com.davidmerchan.network.di
+package com.davidmerchan.di
 
-import com.davidmerchan.network.manager.RetrofitBuilder
+import com.davidmerchan.data.ArticleService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,9 +10,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RemoteDataSourceModule {
-
+object ApiModule {
     @Provides
     @Singleton
-    fun provideApiManager(): Retrofit = RetrofitBuilder.create()
+    fun provideArticlesApi(
+        retrofit: Retrofit
+    ): ArticleService = retrofit.create(ArticleService::class.java)
+
 }

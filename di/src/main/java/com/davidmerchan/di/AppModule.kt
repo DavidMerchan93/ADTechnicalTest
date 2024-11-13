@@ -20,7 +20,7 @@ object AppModule {
     @Singleton
     fun provideLocalDatabase(
         @ApplicationContext applicationContext: Context
-    ): RoomDatabase = Room.databaseBuilder(
+    ): AppDatabase = Room.databaseBuilder(
         applicationContext,
         AppDatabase::class.java,
         "ADTechnicalDatabase"

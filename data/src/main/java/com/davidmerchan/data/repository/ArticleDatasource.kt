@@ -4,8 +4,9 @@ import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
 import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.domain.repository.ArticleDatasourceRepository
+import javax.inject.Inject
 
-class ArticleDatasource(
+class ArticleDatasource @Inject constructor(
     private val localDatasource: ArticlesLocalDatasource,
     private val remoteDataSource: ArticlesRemoteDataSource
 ) : ArticleDatasourceRepository {

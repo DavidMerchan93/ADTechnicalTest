@@ -1,19 +1,21 @@
 package com.davidmerchan.data.model
 
 import com.davidmerchan.domain.entitie.Article
+import com.google.gson.annotations.SerializedName
 
-internal data class ArticlesResponse(
+data class ArticlesResponse(
+    @SerializedName("hits")
     val hits: List<Hits>
 ) {
     fun mapToDomain(): List<Article> {
         return hits.map {
             Article(
                 id = it.storyId.toLong(),
-                title = it.storyTitle,
-                content = it.commentText,
+                title = it.storyTitle ?: "N/A",
+                content = it.commentText ?: "N/A",
                 author = it.author,
                 createdDate = it.createdAt,
-                storyUrl = it.storyUrl
+                storyUrl = it.storyUrl ?: "N/A"
             )
         }
     }

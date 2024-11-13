@@ -4,6 +4,6 @@ import com.davidmerchan.network.model.ArticlesResponse
 import retrofit2.http.GET
 
 interface ArticleService {
-    @GET("search_by_date?query=mobile")
+    @GET(ApiEndpoints.SEARCH_MOBILE)
     suspend fun getArticles(): ArticlesResponse
 }

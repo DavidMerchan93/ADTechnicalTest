@@ -1,5 +1,6 @@
 package com.davidmerchan.di
 
+import com.davidmerchan.core.NetworkValidator
 import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
 import com.davidmerchan.data.datasource.ArticlesRetrofitDataSource
@@ -32,8 +33,10 @@ object ArticlesModule {
     @Provides
     fun provideArticleRepository(
         localDatasource: ArticlesLocalDatasource,
-        remoteDataSource: ArticlesRemoteDataSource
-    ): ArticleDatasourceRepository = ArticleDatasource(localDatasource, remoteDataSource)
+        remoteDataSource: ArticlesRemoteDataSource,
+        networkValidator: NetworkValidator
+    ): ArticleDatasourceRepository =
+        ArticleDatasource(localDatasource, remoteDataSource, networkValidator)
 
     @Provides
     fun provideArticleManager(

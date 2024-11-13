@@ -1,5 +1,6 @@
 package com.davidmerchan.network.manager
 
+import com.davidmerchan.network.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,7 +21,7 @@ object RetrofitBuilder {
     }.build()
 
     fun create(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://hn.algolia.com/api/v1/")
+        .baseUrl(BuildConfig.BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

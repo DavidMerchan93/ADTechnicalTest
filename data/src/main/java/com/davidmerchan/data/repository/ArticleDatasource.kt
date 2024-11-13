@@ -1,5 +1,6 @@
 package com.davidmerchan.data.repository
 
+import com.davidmerchan.core.NetworkValidator
 import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
 import com.davidmerchan.domain.entitie.Article
@@ -10,14 +11,14 @@ import javax.inject.Inject
 
 class ArticleDatasource @Inject constructor(
     private val localDatasource: ArticlesLocalDatasource,
-    private val remoteDataSource: ArticlesRemoteDataSource
+    private val remoteDataSource: ArticlesRemoteDataSource,
+    private val networkValidator: NetworkValidator
 ) : ArticleDatasourceRepository {
 
     @Suppress("TooGenericExceptionCaught")
     override suspend fun getArticles(): Resource<List<Article>> {
-        val connected = true
         return try {
-            val result = if (connected) {
+            val result = if (networkValidator.isConnected()) {
                 remoteDataSource.getArticles()
             } else {
                 localDatasource.getArticles()

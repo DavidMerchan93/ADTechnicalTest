@@ -14,4 +14,7 @@ interface ArticleDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertArticles(vararg articles: ArticleEntity)
+
+    @Query("UPDATE article SET is_deleted = 1 WHERE id = :id")
+    fun deleteArticle(id: Long)
 }

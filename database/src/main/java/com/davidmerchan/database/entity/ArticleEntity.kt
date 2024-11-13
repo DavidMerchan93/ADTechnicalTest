@@ -10,6 +10,7 @@ data class ArticleEntity(
     val title: String,
     val content: String,
     val author: String,
+    @ColumnInfo("is_deleted") val isDeleted: Boolean = false,
     @ColumnInfo("created_date") val createdDate: String,
     @ColumnInfo("story_url") val storyUrl: String,
 )

@@ -4,9 +4,11 @@ import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
 import com.davidmerchan.data.datasource.ArticlesRetrofitDataSource
 import com.davidmerchan.data.datasource.ArticlesRoomDatasource
-import com.davidmerchan.database.dao.ArticleDao
 import com.davidmerchan.data.repository.ArticleDatasource
+import com.davidmerchan.data.repository.ArticleLocalManager
+import com.davidmerchan.database.dao.ArticleDao
 import com.davidmerchan.domain.repository.ArticleDatasourceRepository
+import com.davidmerchan.domain.repository.ArticleLocalManagerRepository
 import com.davidmerchan.network.api.ArticleService
 import dagger.Module
 import dagger.Provides
@@ -32,4 +34,9 @@ object ArticlesModule {
         localDatasource: ArticlesLocalDatasource,
         remoteDataSource: ArticlesRemoteDataSource
     ): ArticleDatasourceRepository = ArticleDatasource(localDatasource, remoteDataSource)
+
+    @Provides
+    fun provideArticleManager(
+        localDatasource: ArticlesLocalDatasource
+    ): ArticleLocalManagerRepository = ArticleLocalManager(localDatasource)
 }

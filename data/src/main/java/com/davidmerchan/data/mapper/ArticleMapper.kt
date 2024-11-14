@@ -25,6 +25,7 @@ fun Article.mapToEntity(): ArticleEntity {
         author = author,
         createdDate = createdDate,
         storyUrl = storyUrl,
+        isDeleted = isDeleted
     )
 }
 
@@ -36,5 +37,6 @@ fun ArticleEntity.mapToDomain(): Article {
         author = author,
         createdDate = createdDate,
         storyUrl = storyUrl,
+        isDeleted = isDeleted
     )
 }

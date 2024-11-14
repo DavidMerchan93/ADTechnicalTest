@@ -55,8 +55,9 @@ class ArticlesViewModel @Inject constructor(
     }
 
     private fun deleteArticle(id: Long) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             deleteArticlesUseCase(id)
         }
+        getArticles()
     }
 }

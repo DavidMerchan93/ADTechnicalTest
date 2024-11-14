@@ -7,4 +7,5 @@ data class Article(
     val author: String,
     val createdDate: String,
     val storyUrl: String,
+    val isDeleted: Boolean = false
 )

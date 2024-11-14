@@ -10,9 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,6 +35,7 @@ import com.davidmerchan.core.network.rememberConnectivityState
 import com.davidmerchan.core.ui.ConnectionMessage
 import com.davidmerchan.core.ui.ErrorScreen
 import com.davidmerchan.core.ui.LoadingScreen
+import com.davidmerchan.core.ui.SwipeToDeleteBox
 import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.presentation.R
 import com.davidmerchan.presentation.screen.articles.events.ArticlesUiEvent
@@ -86,7 +86,14 @@ fun ArticlesScreen(
                         LoadingScreen(message = stringResource(R.string.title_loading_articles))
 
                     uiState.articles.isNotEmpty() -> {
-                        ArticlesContent(articles = uiState.articles)
+                        ArticlesContent(
+                            articles = uiState.articles,
+                            onDeleteArticle = { id ->
+                                articlesViewModel.handleArticleEvent(
+                                    ArticlesUiEvent.DeleteArticle(id)
+                                )
+                            }
+                        )
                     }
 
                     uiState.error != null -> ErrorScreen()
@@ -99,16 +106,29 @@ fun ArticlesScreen(
 }
 
 @Composable
-fun ArticlesContent(modifier: Modifier = Modifier, articles: List<Article>) {
+fun ArticlesContent(
+    modifier: Modifier = Modifier,
+    articles: List<Article>,
+    onDeleteArticle: (id: Long) -> Unit
+) {
     LazyColumn(
         modifier = modifier
     ) {
-        items(articles) { article ->
-            ArticleItem(
-                article = article,
-                onArticleClick = {},
-                onDeleteArticle = {}
-            )
+        items(
+            items = articles,
+            key = { it.id }
+        ) { article ->
+            SwipeToDeleteBox(
+                modifier = Modifier.animateItem(),
+                onDelete = {
+                    onDeleteArticle(article.id)
+                }
+            ) {
+                ArticleItem(
+                    article = article,
+                    onArticleClick = {},
+                )
+            }
         }
     }
 }
@@ -118,44 +138,39 @@ fun ArticleItem(
     modifier: Modifier = Modifier,
     article: Article,
     onArticleClick: (Article) -> Unit,
-    onDeleteArticle: (id: Long) -> Unit
 ) {
-    Card(
+    Column(
         modifier = modifier
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-        shape = RoundedCornerShape(16.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.onBackground)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.onBackground)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+        Text(
+            text = article.title,
+            softWrap = true,
+            maxLines = 2,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
-                text = article.title,
-                softWrap = true,
-                maxLines = 2,
+                modifier = Modifier.weight(1f),
+                text = article.author,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = article.author,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = article.createdDate,
-                    color = MaterialTheme.colorScheme.onSecondary,
-                    fontSize = 14.sp
-                )
-            }
+            Text(
+                text = article.createdDate,
+                color = MaterialTheme.colorScheme.onSecondary,
+                fontSize = 14.sp
+            )
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        HorizontalDivider()
     }
 }
 
@@ -172,8 +187,7 @@ internal fun ArticlesScreenPreview() {
                 "2024-10-12",
                 "http://google.com"
             ),
-            onArticleClick = {},
-            onDeleteArticle = {}
+            onArticleClick = {}
         )
     }
 }

@@ -29,14 +29,4 @@ class ArticleLocalManager @Inject constructor(
             Resource.Error(e)
         }
     }
-
-    @Suppress("TooGenericExceptionCaught")
-    override fun clearArticles(): Resource<Unit> {
-        return try {
-            articlesLocalDatasource.clearArticles()
-            Resource.Success(Unit)
-        } catch (e: Exception) {
-            Resource.Error(e)
-        }
-    }
 }

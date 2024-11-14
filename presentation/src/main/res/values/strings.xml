@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="general_error">Lo sentimos, surgio un error inesperado</string>
     <string name="empty_articles_error">Lo sentimos, no encontramos articulos</string>
     <string name="title_loading_articles">Cargando articulos ...</string>
+    <string name="articles_title_screen">Articulos</string>
 </resources>

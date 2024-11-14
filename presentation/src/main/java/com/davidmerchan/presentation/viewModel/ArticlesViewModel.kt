@@ -1,10 +1,11 @@
-package com.davidmerchan.presentation
+package com.davidmerchan.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davidmerchan.domain.entitie.Resource
 import com.davidmerchan.domain.useCase.DeleteArticleUseCase
 import com.davidmerchan.domain.useCase.GetArticlesUseCase
+import com.davidmerchan.presentation.uiState.ArticlesScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

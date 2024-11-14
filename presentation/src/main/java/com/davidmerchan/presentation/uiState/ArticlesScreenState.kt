@@ -1,4 +1,4 @@
-package com.davidmerchan.presentation
+package com.davidmerchan.presentation.uiState
 
 import com.davidmerchan.domain.entitie.Article
 

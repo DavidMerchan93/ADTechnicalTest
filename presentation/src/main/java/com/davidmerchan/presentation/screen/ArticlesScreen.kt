@@ -1,6 +1,5 @@
-package com.davidmerchan.presentation
+package com.davidmerchan.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
@@ -29,8 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.davidmerchan.core.network.NetworkConnectionState
 import com.davidmerchan.core.network.rememberConnectivityState
+import com.davidmerchan.core.ui.ConnectionMessage
+import com.davidmerchan.core.ui.ErrorScreen
+import com.davidmerchan.core.ui.LoadingScreen
 import com.davidmerchan.domain.entitie.Article
+import com.davidmerchan.presentation.R
 import com.davidmerchan.presentation.theme.ADTechnicalTestTheme
+import com.davidmerchan.presentation.viewModel.ArticlesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +53,7 @@ fun ArticlesScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Articulos")
+                    Text(stringResource(R.string.articles_title_screen))
                 }
             )
         }
@@ -60,36 +63,20 @@ fun ArticlesScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (isConnected.not()) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .align(Alignment.CenterHorizontally),
-                    text = "No tiene conexion a la red"
-                )
-            } else {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .align(Alignment.CenterHorizontally),
-                    text = "Conectado a la red"
-                )
+                ConnectionMessage()
             }
 
             when {
-                uiState.isLoading -> LoadingScreen()
+                uiState.isLoading ->
+                    LoadingScreen(message = stringResource(R.string.title_loading_articles))
+
                 uiState.articles.isNotEmpty() -> {
                     ArticlesContent(articles = uiState.articles)
                 }
 
-                uiState.error != null -> {
-                    ErrorScreen()
-                }
+                uiState.error != null -> ErrorScreen()
 
-                else -> {
-                    ErrorScreen(error = stringResource(R.string.empty_articles_error))
-                }
+                else -> ErrorScreen(error = stringResource(R.string.empty_articles_error))
             }
         }
     }
@@ -130,29 +117,6 @@ fun ArticleItem(
             Text(text = article.createdDate)
         }
         HorizontalDivider()
-    }
-}
-
-@Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(stringResource(R.string.title_loading_articles))
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-fun ErrorScreen(modifier: Modifier = Modifier, error: String? = null) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(error ?: stringResource(R.string.general_error))
     }
 }
 

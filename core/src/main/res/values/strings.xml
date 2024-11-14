@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_connection_error">No tiene conexión de red</string>
+    <string name="general_error">Lo sentimos, surgio un error inesperado</string>
+    <string name="general_loading">Cargando</string>
+</resources>

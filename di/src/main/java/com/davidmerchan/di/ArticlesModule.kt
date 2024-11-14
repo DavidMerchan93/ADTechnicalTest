@@ -1,6 +1,6 @@
 package com.davidmerchan.di
 
-import com.davidmerchan.core.NetworkValidator
+import com.davidmerchan.core.network.NetworkValidator
 import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
 import com.davidmerchan.data.datasource.ArticlesRetrofitDataSource

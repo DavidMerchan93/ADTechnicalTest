@@ -1,4 +1,4 @@
-package com.davidmerchan.core
+package com.davidmerchan.core.network
 
 import android.content.BroadcastReceiver
 import android.content.Context

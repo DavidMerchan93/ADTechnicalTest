@@ -24,7 +24,7 @@ private fun networkCallback(callback: (NetworkConnectionState) -> Unit): Connect
         }
 
         override fun onLost(network: Network) {
-            callback(NetworkConnectionState.Lost)
+            // Do nothing
         }
     }
 }

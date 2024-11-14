@@ -48,7 +48,7 @@ class ArticlesViewModel @Inject constructor(
     private fun getArticles() {
         viewModelScope.launch(Dispatchers.IO) {
             _articlesState.value = when (val result = getArticlesUseCase()) {
-                is Resource.Success -> ArticlesUiState(articles = result.data.shuffled())
+                is Resource.Success -> ArticlesUiState(articles = result.data)
                 is Resource.Error -> ArticlesUiState(error = result.exception.message)
             }
         }

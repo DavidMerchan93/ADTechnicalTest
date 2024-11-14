@@ -10,6 +10,7 @@ interface ArticlesLocalDatasource {
     fun getArticles(): List<Article>
     fun saveArticles(articles: List<Article>)
     fun deleteArticle(id: Long)
+    fun clearArticles()
 }
 
 class ArticlesRoomDatasource @Inject constructor(
@@ -28,5 +29,9 @@ class ArticlesRoomDatasource @Inject constructor(
 
     override fun deleteArticle(id: Long) {
         articleDao.deleteArticle(id)
+    }
+
+    override fun clearArticles() {
+        articleDao.clearArticles()
     }
 }

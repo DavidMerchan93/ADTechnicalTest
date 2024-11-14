@@ -17,4 +17,7 @@ interface ArticleDao {
 
     @Query("UPDATE article SET is_deleted = 1 WHERE id = :id")
     fun deleteArticle(id: Long)
+
+    @Query("DELETE FROM article")
+    fun clearArticles()
 }

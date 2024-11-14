@@ -1,7 +1,9 @@
 package com.davidmerchan.domain.entitie
 
+typealias ArticleId = Long
+
 data class Article(
-    val id: Long,
+    val id: ArticleId,
     val title: String,
     val content: String,
     val author: String,

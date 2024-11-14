@@ -6,5 +6,7 @@ data class ArticlesUiState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val articles: List<Article> = emptyList(),
-    val error: String? = null
+    val error: String? = null,
+    val successDeletedArticle: Long? = null,
+    val errorDeletedArticle: Long? = null,
 )

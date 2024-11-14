@@ -12,8 +12,10 @@ import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 
 @Composable
 fun SwipeToDeleteBox(
@@ -21,7 +23,20 @@ fun SwipeToDeleteBox(
     onDelete: () -> Unit,
     content: @Composable () -> Unit
 ) {
-    val swipeState = rememberSwipeToDismissBoxState()
+    val coroutineScope = rememberCoroutineScope()
+
+    val swipeState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { state ->
+            if (state == SwipeToDismissBoxValue.EndToStart) {
+                coroutineScope.launch {
+                    onDelete()
+                }
+                true
+            } else {
+                false
+            }
+        }
+    )
 
     SwipeToDismissBox(
         modifier = modifier.animateContentSize(),
@@ -42,9 +57,5 @@ fun SwipeToDeleteBox(
         }
     ) {
         content()
-    }
-
-    if (swipeState.currentValue == SwipeToDismissBoxValue.EndToStart) {
-        onDelete()
     }
 }

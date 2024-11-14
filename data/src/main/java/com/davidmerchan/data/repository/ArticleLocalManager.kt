@@ -29,4 +29,24 @@ class ArticleLocalManager @Inject constructor(
             Resource.Error(e)
         }
     }
+
+    @Suppress("TooGenericExceptionCaught")
+    override fun restoreArticle(id: Long): Resource<Article> {
+        return try {
+            val article = articlesLocalDatasource.restoreArticle(id)
+            Resource.Success(article)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    override fun restoreAllArticles(): Resource<List<Article>> {
+        return try {
+            val articles = articlesLocalDatasource.restoreAllArticles()
+            Resource.Success(articles)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
 }

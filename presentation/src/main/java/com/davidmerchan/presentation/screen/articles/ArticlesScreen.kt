@@ -1,4 +1,4 @@
-package com.davidmerchan.presentation.screen
+package com.davidmerchan.presentation.screen.articles
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +14,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -32,6 +33,7 @@ import com.davidmerchan.core.ui.ErrorScreen
 import com.davidmerchan.core.ui.LoadingScreen
 import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.presentation.R
+import com.davidmerchan.presentation.screen.articles.events.ArticlesUiEvent
 import com.davidmerchan.presentation.theme.ADTechnicalTestTheme
 import com.davidmerchan.presentation.viewModel.ArticlesViewModel
 
@@ -58,25 +60,33 @@ fun ArticlesScreen(
             )
         }
     ) { innerPadding ->
-        Column(
+
+        PullToRefreshBox(
             modifier = Modifier.padding(innerPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (isConnected.not()) {
-                ConnectionMessage()
+            isRefreshing = uiState.isRefreshing,
+            onRefresh = {
+                articlesViewModel.handleArticleEvent(ArticlesUiEvent.LoadArticles)
             }
-
-            when {
-                uiState.isLoading ->
-                    LoadingScreen(message = stringResource(R.string.title_loading_articles))
-
-                uiState.articles.isNotEmpty() -> {
-                    ArticlesContent(articles = uiState.articles)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (isConnected.not()) {
+                    ConnectionMessage()
                 }
 
-                uiState.error != null -> ErrorScreen()
+                when {
+                    uiState.isLoading ->
+                        LoadingScreen(message = stringResource(R.string.title_loading_articles))
 
-                else -> ErrorScreen(error = stringResource(R.string.empty_articles_error))
+                    uiState.articles.isNotEmpty() -> {
+                        ArticlesContent(articles = uiState.articles)
+                    }
+
+                    uiState.error != null -> ErrorScreen()
+
+                    else -> ErrorScreen(error = stringResource(R.string.empty_articles_error))
+                }
             }
         }
     }

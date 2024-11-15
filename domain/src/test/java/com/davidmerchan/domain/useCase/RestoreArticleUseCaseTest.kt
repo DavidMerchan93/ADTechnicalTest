@@ -3,10 +3,11 @@ package com.davidmerchan.domain.useCase
 import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.domain.entitie.Resource
 import com.davidmerchan.domain.repository.ArticleLocalManagerRepository
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.confirmVerified
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -28,19 +29,19 @@ class RestoreArticleUseCaseTest {
     }
 
     @Test
-    fun `should return a success resource when the article is successfully restored`() {
+    fun `should return a success resource when the article is successfully restored`() = runBlocking {
         // Given
         val id = 100L
         val article: Article = mockk()
 
-        every { articleManager.restoreArticle(id) } returns
+        coEvery { articleManager.restoreArticle(id) } returns
                 Resource.Success(article)
 
         // When
         val result = restoreArticleUseCase(id)
 
         // Then
-        verify {
+        coVerify {
             articleManager.restoreArticle(id)
         }
         confirmVerified(article)
@@ -48,12 +49,12 @@ class RestoreArticleUseCaseTest {
     }
 
     @Test
-    fun `should return an error resource when the article manager returns an error`() {
+    fun `should return an error resource when the article manager returns an error`() = runBlocking {
         // Given
         val id = 100L
         val exception = Exception("Error restoring article")
 
-        every {
+        coEvery {
             articleManager.restoreArticle(id)
         } returns Resource.Error(exception)
 
@@ -61,7 +62,7 @@ class RestoreArticleUseCaseTest {
         val result = restoreArticleUseCase(id)
 
         // Then
-        verify {
+        coVerify {
             articleManager.restoreArticle(id)
         }
         assertEquals(result, Resource.Error(exception))

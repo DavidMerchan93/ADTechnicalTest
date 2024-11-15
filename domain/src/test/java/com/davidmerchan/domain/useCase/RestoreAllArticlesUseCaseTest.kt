@@ -3,10 +3,11 @@ package com.davidmerchan.domain.useCase
 import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.domain.entitie.Resource
 import com.davidmerchan.domain.repository.ArticleLocalManagerRepository
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.confirmVerified
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -28,7 +29,7 @@ class RestoreAllArticlesUseCaseTest {
     }
 
     @Test
-    fun `should verify the response is correct for input values`() {
+    fun `should verify the response is correct for input values`() = runBlocking {
         // Given
         val articles = List(10) {
             Article(
@@ -40,31 +41,31 @@ class RestoreAllArticlesUseCaseTest {
                 content = "Article $it"
             )
         }
-        every { articleManager.restoreAllArticles() } returns Resource.Success(articles)
+        coEvery { articleManager.restoreAllArticles() } returns Resource.Success(articles)
 
         // When
         val result = restoreAllArticlesUseCase()
 
         // Then
-        verify {
+        coVerify {
             articleManager.restoreAllArticles()
         }
         assertEquals(result, Resource.Success(articles))
     }
     
     @Test
-    fun `should handle Other errors when attempting to restore articles`() {
+    fun `should handle Other errors when attempting to restore articles`() = runBlocking {
 
         val exception = Exception("Other error")
 
         // Given
-        every { articleManager.restoreAllArticles() } returns Resource.Error(exception)
+        coEvery { articleManager.restoreAllArticles() } returns Resource.Error(exception)
 
         // When
         val result = restoreAllArticlesUseCase()
 
         // Then
-        verify {
+        coVerify {
             articleManager.restoreAllArticles()
         }
         assertEquals(result, Resource.Error(exception))

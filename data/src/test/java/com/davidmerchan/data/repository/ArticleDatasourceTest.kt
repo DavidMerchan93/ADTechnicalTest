@@ -12,8 +12,12 @@ import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.just
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -21,15 +25,16 @@ import org.junit.Test
 import java.io.IOException
 
 @Suppress("MaxLineLength")
+@OptIn(ExperimentalCoroutinesApi::class)
 class ArticleDatasourceTest {
 
     private val localDatasource: ArticlesLocalDatasource = mockk()
     private val remoteDataSource: ArticlesRemoteDataSource = mockk()
     private val networkValidator: NetworkValidator = mockk()
-    private val testDispatcher = StandardTestDispatcher()
+    private val testDispatcher = UnconfinedTestDispatcher()
 
     private lateinit var articleDatasource: ArticleDatasourceRepository
-    
+
     @Before
     fun setUp() {
         articleDatasource = ArticleDatasource(
@@ -38,6 +43,7 @@ class ArticleDatasourceTest {
             networkValidator,
             testDispatcher
         )
+        Dispatchers.setMain(testDispatcher)
     }
 
     @After
@@ -47,6 +53,7 @@ class ArticleDatasourceTest {
             remoteDataSource,
             networkValidator
         )
+        Dispatchers.resetMain()
     }
     
     @Test

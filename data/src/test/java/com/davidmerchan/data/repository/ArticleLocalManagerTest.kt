@@ -10,28 +10,35 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ArticleLocalManagerTest {
 
     private val articlesLocalDatasource: ArticlesLocalDatasource = mockk()
-    private val testDispatcher = StandardTestDispatcher()
+    private val testDispatcher = UnconfinedTestDispatcher()
 
     private lateinit var articleLocalManager: ArticleLocalManagerRepository
 
     @Before
     fun setUp() {
         articleLocalManager = ArticleLocalManager(articlesLocalDatasource, testDispatcher)
+        Dispatchers.setMain(testDispatcher)
     }
 
     @After
     fun tearDown() {
         confirmVerified(articlesLocalDatasource)
+        Dispatchers.resetMain()
     }
 
     @Test
@@ -155,7 +162,6 @@ class ArticleLocalManagerTest {
     @Test
     fun `restoreAllArticles() should restore all articles correctly`() = runBlocking {
         // Given
-        val articleId = 101L
         val largeNumberOfArticles = List(10) {
             mockk<Article>()
         }
@@ -177,7 +183,6 @@ class ArticleLocalManagerTest {
     @Test
     fun `restoreArticle() should not restore any article with error`() = runBlocking {
         // Given
-        val articleId = 101L
         val exception = Exception("General Error")
         every {
             articlesLocalDatasource.restoreAllArticles()

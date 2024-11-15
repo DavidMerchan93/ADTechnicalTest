@@ -45,6 +45,46 @@ Este proyecto fue desarrollado por **David Merchan** para la empresa **Apply Dig
 - **Detekt**: Para el analisis de codigo estatico.
 - **Github Actions**: Se implementa un sencillo CI con Github actions para corroborar la estabilidad del codigo cada que se sube un cambio al repositorio.
 
+## Cómo Descargar el Proyecto y Abrirlo en Android Studio
+
+Sigue estos pasos para clonar el proyecto desde GitHub y configurarlo en **Android Studio** para su correcto funcionamiento:
+
+### 1. Clonar el Repositorio
+
+1. Abre tu terminal o línea de comandos.
+2. Ejecuta el siguiente comando para clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/DavidMerchan93/ADTechnicalTest
+   ```
+
+3. Cambia al directorio del proyecto:
+
+   ```bash
+   cd ADTechnicalTest
+   ```
+
+### 2. Abrir el Proyecto en Android Studio
+
+1. Abre **Android Studio**.
+2. Haz clic en **File > Open** (o **Open Project** dependiendo de la versión).
+3. Navega hasta el directorio donde clonaste el proyecto y selecciona la carpeta raíz del proyecto.
+4. Haz clic en **OK** para abrirlo.
+
+### 3. Configurar el SDK de Android
+
+1. Asegúrate de que tienes instalado el **SDK de Android 34** para la versión `compileSdk`.
+
+### 4. Sincronizar Gradle
+
+1. Una vez que el proyecto se abra, Android Studio solicitará sincronizar Gradle. Haz clic en **Sync Now**.
+2. Asegúrate de que todas las dependencias se descarguen correctamente.
+
+### 5. Ejecutar el Proyecto
+
+1. Conecta un dispositivo físico o inicia un emulador desde **AVD Manager**.
+2. Haz clic en el botón **Run** (o presiona `Shift + F10`) para compilar y ejecutar el proyecto.
+
 ## Imágenes
 
 <p align="center">

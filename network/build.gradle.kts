@@ -1,7 +1,15 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+}
+
+val apikeyPropertiesFile = rootProject.file("debug.properties")
+val apikeyProperties = Properties().apply {
+    load(FileInputStream(apikeyPropertiesFile))
 }
 
 android {
@@ -19,7 +27,7 @@ android {
         debug {
             isMinifyEnabled = false
 
-            buildConfigField("String", "BASE_URL", "\"https://hn.algolia.com/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"${apikeyProperties["BASE_URL"]}\"")
         }
         release {
             isMinifyEnabled = true

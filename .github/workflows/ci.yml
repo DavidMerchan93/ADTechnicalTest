@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      BASE_URL: "https://hn.algolia.com/api/v1/"
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17

@@ -48,3 +48,6 @@ jobs:
 
       - name: Build App
         run: ./gradlew assembleDebug
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest --no-daemon

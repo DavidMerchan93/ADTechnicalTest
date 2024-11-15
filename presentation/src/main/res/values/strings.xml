@@ -8,4 +8,6 @@
     <string name="article_deleted_message">Artículo eliminado</string>
     <string name="article_deleted_undo_button">Deshacer</string>
     <string name="article_deleted_error_message">No fue posible eliminar el artículo</string>
+
+    <string name="article_no_url_error">No fue posible verificar la URL del artículo</string>
 </resources>

@@ -15,6 +15,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -34,12 +35,18 @@ object ArticlesModule {
     fun provideArticleRepository(
         localDatasource: ArticlesLocalDatasource,
         remoteDataSource: ArticlesRemoteDataSource,
-        networkValidator: NetworkValidator
-    ): ArticleDatasourceRepository =
-        ArticleDatasource(localDatasource, remoteDataSource, networkValidator)
+        networkValidator: NetworkValidator,
+        ioDispatcher: CoroutineScope
+    ): ArticleDatasourceRepository = ArticleDatasource(
+        localDatasource,
+        remoteDataSource,
+        networkValidator,
+        ioDispatcher
+    )
 
     @Provides
     fun provideArticleManager(
-        localDatasource: ArticlesLocalDatasource
-    ): ArticleLocalManagerRepository = ArticleLocalManager(localDatasource)
+        localDatasource: ArticlesLocalDatasource,
+        ioDispatcher: CoroutineScope
+    ): ArticleLocalManagerRepository = ArticleLocalManager(localDatasource, ioDispatcher)
 }

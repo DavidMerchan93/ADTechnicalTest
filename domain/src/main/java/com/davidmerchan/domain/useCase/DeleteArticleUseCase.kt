@@ -8,7 +8,7 @@ import javax.inject.Inject
 class DeleteArticleUseCase @Inject constructor(
     private val articleManager: ArticleLocalManagerRepository
 ) {
-    operator fun invoke(id: ArticleId): Resource<Long> = when (val result = articleManager.deleteArticle(id)) {
+    suspend operator fun invoke(id: ArticleId): Resource<Long> = when (val result = articleManager.deleteArticle(id)) {
         is Resource.Success -> Resource.Success(id)
         is Resource.Error -> result
     }

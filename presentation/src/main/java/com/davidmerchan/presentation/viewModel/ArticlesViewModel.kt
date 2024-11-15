@@ -11,7 +11,6 @@ import com.davidmerchan.domain.useCase.RestoreArticleUseCase
 import com.davidmerchan.presentation.screen.articles.events.ArticlesUiEvent
 import com.davidmerchan.presentation.screen.articles.states.ArticlesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -52,7 +51,7 @@ class ArticlesViewModel @Inject constructor(
     }
 
     private fun getArticles() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _articlesState.value = when (val result = getArticlesUseCase()) {
                 is Resource.Success -> ArticlesUiState(articles = result.data)
                 is Resource.Error -> ArticlesUiState(error = result.exception.message)
@@ -61,7 +60,7 @@ class ArticlesViewModel @Inject constructor(
     }
 
     private fun deleteArticle(id: ArticleId) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val result = deleteArticlesUseCase(id)
             when (result) {
                 is Resource.Success -> {
@@ -79,7 +78,7 @@ class ArticlesViewModel @Inject constructor(
     }
 
     private fun restoreArticle(id: ArticleId) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (val result = restoreArticleUseCase(id)) {
                 is Resource.Success -> {
                     val articles = _articlesState.value.articles
@@ -99,7 +98,7 @@ class ArticlesViewModel @Inject constructor(
     }
 
     private fun restoreAllArticles() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (val result = restoreAllArticlesUseCase()) {
                 is Resource.Success -> {
                     _articlesState.value = ArticlesUiState(

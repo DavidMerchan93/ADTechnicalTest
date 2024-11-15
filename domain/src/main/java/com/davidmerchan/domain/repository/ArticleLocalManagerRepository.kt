@@ -4,8 +4,8 @@ import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.domain.entitie.Resource
 
 interface ArticleLocalManagerRepository {
-    fun saveArticles(articles: List<Article>): Resource<Unit>
-    fun deleteArticle(id: Long): Resource<Unit>
-    fun restoreArticle(id: Long): Resource<Article>
-    fun restoreAllArticles(): Resource<List<Article>>
+    suspend fun saveArticles(articles: List<Article>): Resource<Unit>
+    suspend fun deleteArticle(id: Long): Resource<Unit>
+    suspend fun restoreArticle(id: Long): Resource<Article>
+    suspend fun restoreAllArticles(): Resource<List<Article>>
 }

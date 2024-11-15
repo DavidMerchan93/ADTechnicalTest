@@ -9,8 +9,9 @@ import javax.inject.Inject
 class RestoreArticleUseCase @Inject constructor(
     private val articleManager: ArticleLocalManagerRepository
 ) {
-    operator fun invoke(id: ArticleId) : Resource<Article> = when (val result = articleManager.restoreArticle(id)) {
-        is Resource.Success -> result
-        is Resource.Error -> result
-    }
+    suspend operator fun invoke(id: ArticleId): Resource<Article> =
+        when (val result = articleManager.restoreArticle(id)) {
+            is Resource.Success -> result
+            is Resource.Error -> result
+        }
 }

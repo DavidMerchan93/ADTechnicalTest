@@ -8,7 +8,7 @@ import javax.inject.Inject
 class RestoreAllArticlesUseCase @Inject constructor(
     private val articleManager: ArticleLocalManagerRepository
 ) {
-    operator fun invoke(): Resource<List<Article>> =
+    suspend operator fun invoke(): Resource<List<Article>> =
         when (val result = articleManager.restoreAllArticles()) {
             is Resource.Success -> result
             is Resource.Error -> result

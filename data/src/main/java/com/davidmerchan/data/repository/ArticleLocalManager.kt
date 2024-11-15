@@ -4,16 +4,21 @@ import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.domain.entitie.Resource
 import com.davidmerchan.domain.repository.ArticleLocalManagerRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ArticleLocalManager @Inject constructor(
-    private val articlesLocalDatasource: ArticlesLocalDatasource
+    private val articlesLocalDatasource: ArticlesLocalDatasource,
+    private val ioDispatcher: CoroutineScope
 ) : ArticleLocalManagerRepository {
 
     @Suppress("TooGenericExceptionCaught")
-    override fun saveArticles(articles: List<Article>): Resource<Unit> {
+    override suspend fun saveArticles(articles: List<Article>): Resource<Unit> {
         return try {
-            articlesLocalDatasource.saveArticles(articles)
+            withContext(ioDispatcher.coroutineContext) {
+                articlesLocalDatasource.saveArticles(articles)
+            }
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e)
@@ -21,9 +26,11 @@ class ArticleLocalManager @Inject constructor(
     }
 
     @Suppress("TooGenericExceptionCaught")
-    override fun deleteArticle(id: Long): Resource<Unit> {
+    override suspend fun deleteArticle(id: Long): Resource<Unit> {
         return try {
-            articlesLocalDatasource.deleteArticle(id)
+            withContext(ioDispatcher.coroutineContext) {
+                articlesLocalDatasource.deleteArticle(id)
+            }
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e)
@@ -31,9 +38,11 @@ class ArticleLocalManager @Inject constructor(
     }
 
     @Suppress("TooGenericExceptionCaught")
-    override fun restoreArticle(id: Long): Resource<Article> {
+    override suspend fun restoreArticle(id: Long): Resource<Article> {
         return try {
-            val article = articlesLocalDatasource.restoreArticle(id)
+            val article = withContext(ioDispatcher.coroutineContext) {
+                articlesLocalDatasource.restoreArticle(id)
+            }
             Resource.Success(article)
         } catch (e: Exception) {
             Resource.Error(e)
@@ -41,9 +50,11 @@ class ArticleLocalManager @Inject constructor(
     }
 
     @Suppress("TooGenericExceptionCaught")
-    override fun restoreAllArticles(): Resource<List<Article>> {
+    override suspend fun restoreAllArticles(): Resource<List<Article>> {
         return try {
-            val articles = articlesLocalDatasource.restoreAllArticles()
+            val articles = withContext(ioDispatcher.coroutineContext) {
+                articlesLocalDatasource.restoreAllArticles()
+            }
             Resource.Success(articles)
         } catch (e: Exception) {
             Resource.Error(e)

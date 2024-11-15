@@ -8,15 +8,14 @@ import javax.inject.Inject
 class GetArticlesUseCase @Inject constructor(
     private val articlesRepository: ArticleDatasourceRepository,
 ) {
-    suspend operator fun invoke(): Resource<List<Article>> {
-        return when (val result = articlesRepository.getArticles()) {
+    suspend operator fun invoke(): Resource<List<Article>> =
+        when (val result = articlesRepository.getArticles()) {
             is Resource.Success -> {
                 Resource.Success(orderArticlesByDate(result.data))
             }
 
             is Resource.Error -> result
         }
-    }
 
     private fun orderArticlesByDate(articles: List<Article>): List<Article> {
         return articles.filter { it.isDeleted.not() }

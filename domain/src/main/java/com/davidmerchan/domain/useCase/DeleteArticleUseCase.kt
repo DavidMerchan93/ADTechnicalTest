@@ -10,6 +10,6 @@ class DeleteArticleUseCase @Inject constructor(
 ) {
     operator fun invoke(id: ArticleId): Resource<Long> = when (val result = articleManager.deleteArticle(id)) {
         is Resource.Success -> Resource.Success(id)
-        is Resource.Error -> throw result.exception
+        is Resource.Error -> result
     }
 }

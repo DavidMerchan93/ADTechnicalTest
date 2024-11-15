@@ -11,6 +11,6 @@ class RestoreArticleUseCase @Inject constructor(
 ) {
     operator fun invoke(id: ArticleId) : Resource<Article> = when (val result = articleManager.restoreArticle(id)) {
         is Resource.Success -> result
-        is Resource.Error -> throw result.exception
+        is Resource.Error -> result
     }
 }

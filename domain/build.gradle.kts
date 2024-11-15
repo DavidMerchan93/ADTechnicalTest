@@ -37,10 +37,19 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
+    // Hilt
+    implementation(libs.hilt.android)
+
+    // JUnit 4
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Hilt
-    implementation(libs.hilt.android)
+    // Mockk - Unit test
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent.jvm)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

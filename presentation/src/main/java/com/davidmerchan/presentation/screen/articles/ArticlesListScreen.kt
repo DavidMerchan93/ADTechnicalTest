@@ -58,9 +58,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArticlesScreen(
+fun ArticlesListScreen(
     modifier: Modifier = Modifier,
-    articlesViewModel: ArticlesViewModel = hiltViewModel()
+    articlesViewModel: ArticlesViewModel = hiltViewModel(),
+    onGoToDetail: (id: ArticleId, articleUrl: String) -> Unit
 ) {
     val context = LocalContext.current
     val uiState by articlesViewModel.articlesState.collectAsStateWithLifecycle()
@@ -145,7 +146,8 @@ fun ArticlesScreen(
                                 articlesViewModel.handleArticleEvent(
                                     ArticlesUiEvent.DeleteArticle(id)
                                 )
-                            }
+                            },
+                            onGoToDetail = onGoToDetail
                         )
                     }
 
@@ -170,7 +172,8 @@ fun ArticlesScreen(
 fun ArticlesContent(
     modifier: Modifier = Modifier,
     articles: List<Article>,
-    onDeleteArticle: (id: ArticleId) -> Unit
+    onDeleteArticle: (id: ArticleId) -> Unit,
+    onGoToDetail: (id: ArticleId, url: String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -187,7 +190,9 @@ fun ArticlesContent(
             ) {
                 ArticleItem(
                     article = article,
-                    onArticleClick = {},
+                    onGoToDetail = {
+                        onGoToDetail(article.id, article.storyUrl)
+                    },
                 )
             }
         }
@@ -198,11 +203,12 @@ fun ArticlesContent(
 fun ArticleItem(
     modifier: Modifier = Modifier,
     article: Article,
-    onArticleClick: (Article) -> Unit,
+    onGoToDetail: () -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .clickable { onGoToDetail() }
             .background(MaterialTheme.colorScheme.onBackground)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -248,7 +254,7 @@ internal fun ArticlesScreenPreview() {
                 "2024-10-12",
                 "http://google.com"
             ),
-            onArticleClick = {}
+            onGoToDetail = {}
         )
     }
 }

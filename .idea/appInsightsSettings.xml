@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.davidmerchan.adtechnicaltest" />
+                  <option name="mobileSdkAppId" value="1:429482624202:android:9fdd4efb6042af6ee7e033" />
+                  <option name="projectId" value="adtechnicaltest" />
+                  <option name="projectNumber" value="429482624202" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -50,6 +50,7 @@ import com.davidmerchan.core.ui.ConnectionMessage
 import com.davidmerchan.core.ui.ErrorScreen
 import com.davidmerchan.core.ui.LoadingScreen
 import com.davidmerchan.core.ui.SwipeToDeleteBox
+import com.davidmerchan.core.ui.theme.ADTechnicalTestTheme
 import com.davidmerchan.core.utils.Toast
 import com.davidmerchan.core.utils.checkUrl
 import com.davidmerchan.core.utils.toast
@@ -58,7 +59,6 @@ import com.davidmerchan.domain.entitie.ArticleId
 import com.davidmerchan.presentation.R
 import com.davidmerchan.presentation.screen.articles.events.ArticlesUiEvent
 import com.davidmerchan.presentation.screen.articles.states.ArticlesUiState
-import com.davidmerchan.presentation.theme.ADTechnicalTestTheme
 import com.davidmerchan.presentation.viewModel.ArticlesViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -285,7 +285,7 @@ fun ArticleItem(
 
 @Preview
 @Composable
-internal fun ArticlesScreenPreview() {
+internal fun ArticlesItemPreview() {
     ADTechnicalTestTheme {
         ArticleItem(
             article = Article(
@@ -297,6 +297,37 @@ internal fun ArticlesScreenPreview() {
                 "http://google.com"
             ),
             onGoToDetail = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+internal fun ArticlesContentPreview() {
+    ADTechnicalTestTheme {
+        ArticlesContent(
+            articles = listOf(
+                Article(
+                    1,
+                    "Title 1",
+                    "Content 1",
+                    "Author 1",
+                    "2024-10-12",
+                    "http://google.com"
+                ),
+                Article(
+                    2,
+                    "Title 2",
+                    "Content 2",
+                    "Author 2",
+                    "2024-10-13",
+                    "http://google.com"
+                )
+            ).toImmutableList(),
+            onDeleteArticle = {},
+            onGoToDetail = { id, url ->
+                println("Go to detail: $id - $url")
+            }
         )
     }
 }

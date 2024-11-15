@@ -24,6 +24,7 @@ roomRuntime = "2.6.1"
 runtimeAndroid = "1.7.5"
 serialization = "1.6.3"
 kotlinxCoroutinesTest = "1.8.1"
+screenshot = "0.0.1-alpha07"
 
 [libraries]
 androidx-core = { module = "androidx.test:core", version.ref = "testCore" }
@@ -69,4 +70,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 android-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
 

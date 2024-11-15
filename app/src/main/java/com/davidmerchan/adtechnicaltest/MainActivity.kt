@@ -8,9 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.davidmerchan.core.ui.theme.ADTechnicalTestTheme
 import com.davidmerchan.presentation.screen.articles.ArticlesListScreen
 import com.davidmerchan.presentation.screen.detail.ArticleDetailScreen
-import com.davidmerchan.presentation.theme.ADTechnicalTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

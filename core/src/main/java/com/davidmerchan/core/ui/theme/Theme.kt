@@ -1,4 +1,4 @@
-package com.davidmerchan.presentation.theme
+package com.davidmerchan.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

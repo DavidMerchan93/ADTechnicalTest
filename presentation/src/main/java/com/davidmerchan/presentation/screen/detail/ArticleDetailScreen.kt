@@ -21,9 +21,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import com.davidmerchan.core.ui.LoadingScreen
 import com.davidmerchan.core.ui.ShareIcon
+import com.davidmerchan.core.ui.theme.ADTechnicalTestTheme
 import com.davidmerchan.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,5 +89,16 @@ fun ArticleDetailScreen(
         if (isLoading) {
             LoadingScreen()
         }
+    }
+}
+
+@Preview
+@Composable
+internal fun ArticleDetailScreenPreview() {
+    ADTechnicalTestTheme {
+        ArticleDetailScreen(
+            url = "https://example.com",
+            onBack = {}
+        )
     }
 }

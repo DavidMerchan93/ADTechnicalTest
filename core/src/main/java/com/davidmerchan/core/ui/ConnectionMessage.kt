@@ -10,9 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.davidmerchan.core.R
+import com.davidmerchan.core.ui.theme.ADTechnicalTestTheme
 
 @Composable
 fun ConnectionMessage(modifier: Modifier = Modifier) {
@@ -27,4 +29,12 @@ fun ConnectionMessage(modifier: Modifier = Modifier) {
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold
     )
+}
+
+@Preview
+@Composable
+internal fun ConnectionMessagePreview() {
+    ADTechnicalTestTheme {
+        ConnectionMessage()
+    }
 }

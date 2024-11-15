@@ -23,6 +23,12 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      - name: Generate debug.properties
+        run: |
+          cat <<EOF > debug.properties
+          BASE_URL:"https://hn.algolia.com/api/v1/"
+          EOF
+
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
         with:

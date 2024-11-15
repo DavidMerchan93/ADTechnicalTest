@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BASE_URL: "https://hn.algolia.com/api/v1/"
+      BASE_URL: https://hn.algolia.com/api/v1/
 
     steps:
       - uses: actions/checkout@v3

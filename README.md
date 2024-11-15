@@ -1,7 +1,7 @@
 
 # Proyecto Android - Aplicación Kotlin Compose
 
-Este proyecto fue desarrollado por **David Merchan** para la empresa **Apply Digital Latam**. Es una aplicación Android que utiliza **Kotlin** como lenguaje principal y **Jetpack Compose** con **Material 3** para el diseño de la interfaz de usuario. Se siguen los principios de diseño **SOLID**, **KISS** y **DRY** para garantizar un desarrollo eficiente, fácil mantenimiento y entendimiento del código.
+Este proyecto fue desarrollado por **David Merchan** para la empresa **Apply Digital Latam**. Es una aplicación Android que muestra un listado de articulos de manera online y offline, utiliza **Kotlin** como lenguaje principal y **Jetpack Compose** con **Material 3** para el diseño de la interfaz de usuario. Se siguen los principios de diseño **SOLID**, **KISS** y **DRY** para garantizar un desarrollo eficiente, fácil mantenimiento y entendimiento del código.
 
 ## Características del Proyecto
 
@@ -44,3 +44,14 @@ Este proyecto fue desarrollado por **David Merchan** para la empresa **Apply Dig
 - **Room**: Para la gestión de datos locales.
 - **Detekt**: Para el analisis de codigo estatico.
 - **Github Actions**: Se implementa un sencillo CI con Github actions para corroborar la estabilidad del codigo cada que se sube un cambio al repositorio.
+
+## Imágenes
+
+<p align="center">
+  <img src="media/1.png" alt="Imagen 1" width="150"/>
+  <img src="media/2.png" alt="Imagen 1" width="150"/>
+  <img src="media/3.png" alt="Imagen 1" width="150"/>
+  <img src="media/4.png" alt="Imagen 1" width="150"/>
+  <img src="media/5.png" alt="Imagen 1" width="150"/>
+  <img src="media/video.gif" alt="Imagen 1" width="150"/>
+</p>

@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      BASE_URL: https://hn.algolia.com/api/v1/
-
     steps:
       - uses: actions/checkout@v3
 
@@ -26,7 +23,7 @@ jobs:
       - name: Generate debug.properties
         run: |
           cat <<EOF > debug.properties
-          BASE_URL:"https://hn.algolia.com/api/v1/"
+          BASE_URL: https://hn.algolia.com/api/v1/
           EOF
 
       - name: Cache Gradle dependencies

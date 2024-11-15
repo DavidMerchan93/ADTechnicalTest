@@ -49,5 +49,8 @@ jobs:
       - name: Build App
         run: ./gradlew assembleDebug
 
+      - name: Run Detekt
+        run: ./gradlew detekt
+
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest --no-daemon

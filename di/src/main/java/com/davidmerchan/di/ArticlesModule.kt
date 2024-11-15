@@ -1,5 +1,6 @@
 package com.davidmerchan.di
 
+import com.davidmerchan.core.di.IoDispatcher
 import com.davidmerchan.core.network.NetworkValidator
 import com.davidmerchan.data.datasource.ArticlesLocalDatasource
 import com.davidmerchan.data.datasource.ArticlesRemoteDataSource
@@ -15,7 +16,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,7 +37,7 @@ object ArticlesModule {
         localDatasource: ArticlesLocalDatasource,
         remoteDataSource: ArticlesRemoteDataSource,
         networkValidator: NetworkValidator,
-        ioDispatcher: CoroutineScope
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): ArticleDatasourceRepository = ArticleDatasource(
         localDatasource,
         remoteDataSource,
@@ -47,6 +48,9 @@ object ArticlesModule {
     @Provides
     fun provideArticleManager(
         localDatasource: ArticlesLocalDatasource,
-        ioDispatcher: CoroutineScope
-    ): ArticleLocalManagerRepository = ArticleLocalManager(localDatasource, ioDispatcher)
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
+    ): ArticleLocalManagerRepository = ArticleLocalManager(
+        localDatasource,
+        ioDispatcher
+    )
 }

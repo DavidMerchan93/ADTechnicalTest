@@ -29,8 +29,8 @@ import com.davidmerchan.presentation.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleDetailScreen(
-    modifier: Modifier = Modifier,
     url: String,
+    modifier: Modifier = Modifier,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -53,13 +53,13 @@ fun ArticleDetailScreen(
                     )
                 },
                 actions = {
-                    ShareIcon(context, url)
+                    ShareIcon(context = context, url = url)
                 }
             )
         }
     ) { innerPaddings ->
         AndroidView(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPaddings),
             factory = { cont ->

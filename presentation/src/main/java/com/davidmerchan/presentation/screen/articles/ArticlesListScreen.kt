@@ -32,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +60,8 @@ import com.davidmerchan.presentation.screen.articles.events.ArticlesUiEvent
 import com.davidmerchan.presentation.screen.articles.states.ArticlesUiState
 import com.davidmerchan.presentation.theme.ADTechnicalTestTheme
 import com.davidmerchan.presentation.viewModel.ArticlesViewModel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -144,7 +147,7 @@ fun ArticlesListScreen(
 
                     uiState.articles.isNotEmpty() -> {
                         ArticlesContent(
-                            articles = uiState.articles,
+                            articles = uiState.articles.toImmutableList(),
                             onDeleteArticle = { id ->
                                 articlesViewModel.handleArticleEvent(
                                     ArticlesUiEvent.DeleteArticle(id)
@@ -173,6 +176,7 @@ fun ArticlesListScreen(
     }
 }
 
+@Suppress("LongParameterList")
 @Composable
 fun DeleteArticleSnackbar(
     uiState: ArticlesUiState,
@@ -182,6 +186,8 @@ fun DeleteArticleSnackbar(
     actionTitle: String,
     onUndoDeleteArticle: (id: ArticleId) -> Unit
 ) {
+    val currentOnUndoDeleteArticle by rememberUpdatedState(onUndoDeleteArticle)
+
     LaunchedEffect(uiState.successDeletedArticle) {
         uiState.successDeletedArticle?.let { articleId ->
             coroutineScope.launch {
@@ -195,7 +201,7 @@ fun DeleteArticleSnackbar(
                 when (action) {
                     SnackbarResult.Dismissed -> Unit
                     SnackbarResult.ActionPerformed -> {
-                        onUndoDeleteArticle(articleId)
+                        currentOnUndoDeleteArticle(articleId)
                         snackBarHostState.currentSnackbarData?.dismiss()
                     }
                 }
@@ -206,9 +212,9 @@ fun DeleteArticleSnackbar(
 
 @Composable
 fun ArticlesContent(
-    modifier: Modifier = Modifier,
-    articles: List<Article>,
+    articles: ImmutableList<Article>,
     onDeleteArticle: (id: ArticleId) -> Unit,
+    modifier: Modifier = Modifier,
     onGoToDetail: (id: ArticleId, url: String) -> Unit
 ) {
     LazyColumn(
@@ -237,8 +243,8 @@ fun ArticlesContent(
 
 @Composable
 fun ArticleItem(
-    modifier: Modifier = Modifier,
     article: Article,
+    modifier: Modifier = Modifier,
     onGoToDetail: () -> Unit,
 ) {
     Column(

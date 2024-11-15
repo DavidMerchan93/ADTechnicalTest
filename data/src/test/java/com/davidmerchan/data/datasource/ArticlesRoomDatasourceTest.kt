@@ -14,6 +14,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("MaxLineLength")
 class ArticlesRoomDatasourceTest {
 
     private val articleDao: ArticleDao = mockk()
@@ -133,7 +134,7 @@ class ArticlesRoomDatasourceTest {
         }
         confirmVerified(articleDao)
     }
-    
+
     @Test
     fun `restoreArticle() should handle restoring an article that exists in the database and return the restored article`() {
         // Given

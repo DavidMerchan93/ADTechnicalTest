@@ -10,6 +10,8 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -18,11 +20,13 @@ import org.junit.Test
 class ArticleLocalManagerTest {
 
     private val articlesLocalDatasource: ArticlesLocalDatasource = mockk()
+    private val testDispatcher = StandardTestDispatcher()
+
     private lateinit var articleLocalManager: ArticleLocalManagerRepository
 
     @Before
     fun setUp() {
-        articleLocalManager = ArticleLocalManager(articlesLocalDatasource)
+        articleLocalManager = ArticleLocalManager(articlesLocalDatasource, testDispatcher)
     }
 
     @After
@@ -31,7 +35,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `saveArticles() should save articles correctly`() {
+    fun `saveArticles() should save articles correctly`() = runBlocking {
         // Given
         val largeNumberOfArticles = List(10) {
             mockk<Article>()
@@ -51,7 +55,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `saveArticles() should not save articles with error`() {
+    fun `saveArticles() should not save articles with error`() = runBlocking {
         // Given
         val largeNumberOfArticles = List(10) {
             mockk<Article>()
@@ -72,7 +76,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `deleteArticle() should delete one article correctly`() {
+    fun `deleteArticle() should delete one article correctly`() = runBlocking {
         // Given
         val articleId = 101L
         every {
@@ -90,7 +94,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `deleteArticle() should not delete one article with error`() {
+    fun `deleteArticle() should not delete one article with error`() = runBlocking {
         // Given
         val articleId = 101L
         val exception = Exception("General Error")
@@ -109,7 +113,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `restoreArticle() should restore one article correctly`() {
+    fun `restoreArticle() should restore one article correctly`() = runBlocking {
         // Given
         val articleId = 101L
         val article: Article = mockk()
@@ -130,7 +134,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `restoreArticle() should not restore one article with error`() {
+    fun `restoreArticle() should not restore one article with error`() = runBlocking {
         // Given
         val articleId = 101L
         val exception = Exception("General Error")
@@ -149,7 +153,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `restoreAllArticles() should restore all articles correctly`() {
+    fun `restoreAllArticles() should restore all articles correctly`() = runBlocking {
         // Given
         val articleId = 101L
         val largeNumberOfArticles = List(10) {
@@ -171,7 +175,7 @@ class ArticleLocalManagerTest {
     }
 
     @Test
-    fun `restoreArticle() should not restore any article with error`() {
+    fun `restoreArticle() should not restore any article with error`() = runBlocking {
         // Given
         val articleId = 101L
         val exception = Exception("General Error")

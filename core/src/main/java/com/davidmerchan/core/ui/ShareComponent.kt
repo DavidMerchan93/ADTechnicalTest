@@ -10,7 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ShareIcon(context: Context, url: String) {
+fun ShareIcon(
+    context: Context,
+    url: String,
+    modifier: Modifier = Modifier
+) {
     val sendIntent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, url)
@@ -20,7 +24,7 @@ fun ShareIcon(context: Context, url: String) {
     Icon(
         imageVector = Icons.Default.Share,
         contentDescription = "Share",
-        modifier = Modifier.clickable(onClick = {
+        modifier = modifier.clickable(onClick = {
             context.startActivity(shareIntent)
         })
     )

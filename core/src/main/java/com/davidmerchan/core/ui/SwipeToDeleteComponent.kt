@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SwipeToDeleteBox(
-    modifier: Modifier = Modifier,
     onDelete: () -> Unit,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()

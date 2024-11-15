@@ -7,7 +7,6 @@ Este proyecto fue desarrollado por **David Merchan** para la empresa **Apply Dig
 
 1. **Pruebas**:
     - Se implementan pruebas unitarias utilizando la biblioteca **MockK**.
-    - **Screenshot Testing** se usa para verificar las pantallas desarrolladas en Compose.
     - Se integra **Crashlytics** para capturar y rastrear errores en caso de fallos durante la ejecución de la aplicación.
 
 2. **Arquitectura**:
@@ -40,8 +39,8 @@ Este proyecto fue desarrollado por **David Merchan** para la empresa **Apply Dig
 - **Jetpack Compose**: Para construir una UI moderna y reactiva.
 - **Material 3**: Para aplicar el diseño visual.
 - **MockK**: Para pruebas unitarias.
-- **Screenshot Testing**: Para la validación visual de las pantallas.
 - **Crashlytics**: Para el monitoreo de errores y fallos.
 - **Retrofit**: Para llamadas a la API.
 - **Room**: Para la gestión de datos locales.
 - **Detekt**: Para el analisis de codigo estatico.
+- **Github Actions**: Se implementa un sencillo CI con Github actions para corroborar la estabilidad del codigo cada que se sube un cambio al repositorio.

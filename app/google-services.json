@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "429482624202",
+    "project_id": "adtechnicaltest",
+    "storage_bucket": "adtechnicaltest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429482624202:android:9fdd4efb6042af6ee7e033",
+        "android_client_info": {
+          "package_name": "com.davidmerchan.adtechnicaltest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo9cIvcUfPw3kW2y9fcpCKkMdrrKlIJRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

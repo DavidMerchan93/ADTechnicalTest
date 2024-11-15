@@ -6,10 +6,8 @@ import android.webkit.WebViewClient
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -20,27 +18,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
-import com.davidmerchan.domain.entitie.ArticleId
+import com.davidmerchan.core.ui.LoadingScreen
+import com.davidmerchan.core.ui.ShareIcon
+import com.davidmerchan.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleDetailScreen(
     modifier: Modifier = Modifier,
-    id: ArticleId,
     url: String,
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
     var isLoading by remember { mutableStateOf(true) }
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Detalle")
+                    Text(stringResource(R.string.articles_detail_title_screen))
                 },
                 navigationIcon = {
                     Icon(
@@ -50,6 +51,9 @@ fun ArticleDetailScreen(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back"
                     )
+                },
+                actions = {
+                    ShareIcon(context, url)
                 }
             )
         }
@@ -81,11 +85,7 @@ fun ArticleDetailScreen(
             }
         )
         if (isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center)
-            )
+            LoadingScreen()
         }
     }
 }

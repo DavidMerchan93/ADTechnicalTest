@@ -52,8 +52,10 @@ import com.davidmerchan.domain.entitie.Article
 import com.davidmerchan.domain.entitie.ArticleId
 import com.davidmerchan.presentation.R
 import com.davidmerchan.presentation.screen.articles.events.ArticlesUiEvent
+import com.davidmerchan.presentation.screen.articles.states.ArticlesUiState
 import com.davidmerchan.presentation.theme.ADTechnicalTestTheme
 import com.davidmerchan.presentation.viewModel.ArticlesViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,28 +76,18 @@ fun ArticlesListScreen(
         derivedStateOf { connectionState === NetworkConnectionState.Available }
     }
 
-    LaunchedEffect(uiState.successDeletedArticle) {
-        uiState.successDeletedArticle?.let { articleId ->
-            coroutine.launch {
-                val action = snackBarHostState.showSnackbar(
-                    message = "Articulo eliminado",
-                    duration = SnackbarDuration.Short,
-                    actionLabel = "Deshacer",
-                    withDismissAction = false
-                )
-
-                when (action) {
-                    SnackbarResult.Dismissed -> Unit
-                    SnackbarResult.ActionPerformed -> {
-                        articlesViewModel.handleArticleEvent(
-                            ArticlesUiEvent.UndoDeleteArticle(articleId)
-                        )
-                        snackBarHostState.currentSnackbarData?.dismiss()
-                    }
-                }
-            }
+    DeleteArticleSnackbar(
+        uiState = uiState,
+        snackBarHostState = snackBarHostState,
+        coroutineScope = coroutine,
+        title = stringResource(R.string.article_deleted_message),
+        actionTitle = stringResource(R.string.article_deleted_undo_button),
+        onUndoDeleteArticle = { articleId ->
+            articlesViewModel.handleArticleEvent(
+                ArticlesUiEvent.UndoDeleteArticle(articleId)
+            )
         }
-    }
+    )
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -154,7 +146,7 @@ fun ArticlesListScreen(
                     uiState.errorDeletedArticle != null -> {
                         Toast.makeText(
                             context,
-                            "No fue posible eliminar el articulo",
+                            stringResource(R.string.article_deleted_error_message),
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -162,6 +154,37 @@ fun ArticlesListScreen(
                     uiState.error != null -> ErrorScreen()
 
                     else -> ErrorScreen(error = stringResource(R.string.empty_articles_error))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun DeleteArticleSnackbar(
+    uiState: ArticlesUiState,
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope,
+    title: String,
+    actionTitle: String,
+    onUndoDeleteArticle: (id: ArticleId) -> Unit
+) {
+    LaunchedEffect(uiState.successDeletedArticle) {
+        uiState.successDeletedArticle?.let { articleId ->
+            coroutineScope.launch {
+                val action = snackBarHostState.showSnackbar(
+                    message = title,
+                    duration = SnackbarDuration.Short,
+                    actionLabel = actionTitle,
+                    withDismissAction = false
+                )
+
+                when (action) {
+                    SnackbarResult.Dismissed -> Unit
+                    SnackbarResult.ActionPerformed -> {
+                        onUndoDeleteArticle(articleId)
+                        snackBarHostState.currentSnackbarData?.dismiss()
+                    }
                 }
             }
         }

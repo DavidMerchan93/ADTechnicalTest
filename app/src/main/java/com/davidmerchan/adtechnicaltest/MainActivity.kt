@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
                     composable<Screens.ArticleDetail> {
                         val arg = it.toRoute<Screens.ArticleDetail>()
                         ArticleDetailScreen(
-                            id = arg.id,
                             url = arg.url,
                             onBack = {
                                 navController.popBackStack()

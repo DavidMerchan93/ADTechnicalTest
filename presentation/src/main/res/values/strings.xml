@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="empty_articles_error">Lo sentimos, no encontramos articulos</string>
-    <string name="title_loading_articles">Cargando articulos ...</string>
-    <string name="articles_title_screen">Articulos</string>
+    <string name="empty_articles_error">Lo sentimos, no encontramos artículos</string>
+    <string name="title_loading_articles">Cargando artículos...</string>
+    <string name="articles_title_screen">Artículos</string>
+    <string name="articles_detail_title_screen">Detalle del artículo</string>
+
+    <string name="article_deleted_message">Artículo eliminado</string>
+    <string name="article_deleted_undo_button">Deshacer</string>
+    <string name="article_deleted_error_message">No fue posible eliminar el artículo</string>
 </resources>

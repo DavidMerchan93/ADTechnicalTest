@@ -251,14 +251,14 @@ fun ArticleItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onGoToDetail() }
-            .background(MaterialTheme.colorScheme.onBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
             text = article.title,
             softWrap = true,
             maxLines = 2,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
@@ -269,12 +269,12 @@ fun ArticleItem(
             Text(
                 modifier = Modifier.weight(1f),
                 text = article.author,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.secondary,
                 fontSize = 16.sp
             )
             Text(
                 text = article.createdDate,
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = MaterialTheme.colorScheme.tertiary,
                 fontSize = 14.sp
             )
         }
